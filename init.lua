@@ -211,6 +211,34 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Keymaps for compiling C files
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'c',
+  callback = function()
+    -- Compile the current file
+    vim.keymap.set('n', '<leader>cc', function()
+      local filename = vim.fn.expand '%:p'
+      local output = vim.fn.expand '%:p:r'
+      vim.cmd 'write' -- Save the file before compiling
+      vim.cmd('vsplit | terminal clang -Wall -Wextra -g ' .. filename .. ' -o ' .. output)
+    end, { buffer = true, desc = 'Compile C file' })
+
+    -- Compile and run the current file
+    vim.keymap.set('n', '<leader>cr', function()
+      local filename = vim.fn.expand '%:p'
+      local output = vim.fn.expand '%:p:r'
+      vim.cmd 'write' -- Save the file before compiling
+      vim.cmd('vsplit | terminal clang -Wall -Wextra -g ' .. filename .. ' -o ' .. output .. ' && ' .. output)
+    end, { buffer = true, desc = 'Compile and run C file' })
+
+    -- Run the compiled file
+    vim.keymap.set('n', '<leader>r', function()
+      local output = vim.fn.expand '%:p:r'
+      vim.cmd('vsplit | terminal ' .. output)
+    end, { buffer = true, desc = 'Run compiled C file' })
+  end,
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
