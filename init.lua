@@ -239,6 +239,15 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
+-- Python-specific keymaps
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'python',
+  callback = function()
+    vim.keymap.set('n', '<leader>r', ':!python %<CR>', { buffer = true, desc = 'Run Python file' })
+    vim.keymap.set('n', '<leader>t', ':!python -m pytest %<CR>', { buffer = true, desc = 'Run tests for current file' })
+  end,
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -282,6 +291,7 @@ require('lazy').setup({
 
       lint.linters_by_ft = {
         c = { 'clangtidy' },
+        python = { 'pylint' },
       }
 
       local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
@@ -725,7 +735,7 @@ require('lazy').setup({
       local servers = {
         clangd = {},
         -- gopls = {},
-        -- pyright = {},
+        pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -766,6 +776,9 @@ require('lazy').setup({
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
         'clang-format', -- Used to format C code
+        'pylint', -- Used to lint Python code
+        'black', -- Used to format Python code
+        'isort', -- Used to sort Python `import` statements
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -820,7 +833,7 @@ require('lazy').setup({
         lua = { 'stylua' },
         c = { 'clang_format' },
         -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
+        python = { 'isort', 'black' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
