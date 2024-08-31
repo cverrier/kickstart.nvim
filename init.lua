@@ -321,6 +321,31 @@ require('lazy').setup({
     },
   },
 
+  {
+    'cocopon/iceberg.vim',
+    priority = 1000,
+    config = function()
+      -- Load the colorscheme
+      vim.cmd.colorscheme 'iceberg'
+      vim.o.background = 'dark'
+
+      -- Set up a function to toggle between light and dark modes
+      local function toggle_background()
+        if vim.o.background == 'dark' then
+          vim.o.background = 'light'
+        else
+          vim.o.background = 'dark'
+        end
+      end
+
+      -- Set up a keybinding to toggle between light and dark modes
+      vim.keymap.set('n', '<leader>tb', toggle_background, { desc = '[T]oggle [B]ackground' })
+
+      -- You can still configure highlights if needed
+      vim.cmd.hi 'Comment gui=none'
+    end,
+  },
+
   -- Here is a more advanced example where we pass configuration
   -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
   --    require('gitsigns').setup({ ... })
