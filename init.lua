@@ -164,6 +164,17 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+-- Set indentation for C files to 2 spaces
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'c',
+  callback = function()
+    vim.bo.shiftwidth = 2
+    vim.bo.tabstop = 2
+    vim.bo.softtabstop = 2
+    vim.bo.expandtab = true
+  end,
+})
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
