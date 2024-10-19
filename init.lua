@@ -177,6 +177,17 @@ vim.api.nvim_create_autocmd('FileType', {
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
+-- Set up a function to toggle between light and dark modes
+local function toggle_background()
+  if vim.o.background == 'dark' then
+    vim.o.background = 'light'
+  else
+    vim.o.background = 'dark'
+  end
+end
+
+-- Set up a keybinding to toggle between light and dark modes
+vim.keymap.set('n', '<leader>tb', toggle_background, { desc = '[T]oggle [B]ackground' })
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
@@ -339,150 +350,6 @@ require('lazy').setup({
     },
     keys = {
       { '<leader>e', '<cmd>NvimTreeToggle<cr>', desc = 'Toggle NvimTree' },
-    },
-  },
-
-  {
-    'cocopon/iceberg.vim',
-    priority = 1000,
-    config = function()
-      -- Load the colorscheme
-      vim.cmd.colorscheme 'iceberg'
-      vim.o.background = 'dark'
-
-      -- Set up a function to toggle between light and dark modes
-      local function toggle_background()
-        if vim.o.background == 'dark' then
-          vim.o.background = 'light'
-        else
-          vim.o.background = 'dark'
-        end
-      end
-
-      -- Set up a keybinding to toggle between light and dark modes
-      vim.keymap.set('n', '<leader>tb', toggle_background, { desc = '[T]oggle [B]ackground' })
-
-      -- You can still configure highlights if needed
-      vim.cmd.hi 'Comment gui=none'
-    end,
-  },
-
-  {
-    'zbirenbaum/copilot.lua',
-    cmd = 'Copilot',
-    event = 'InsertEnter',
-    config = function()
-      require('copilot').setup {
-        panel = {
-          enabled = true,
-          auto_refresh = false,
-          keymap = {
-            jump_prev = '[[',
-            jump_next = ']]',
-            accept = '<CR>',
-            refresh = 'gr',
-            open = '<M-CR>',
-          },
-          layout = {
-            position = 'bottom', -- | top | left | right
-            ratio = 0.4,
-          },
-        },
-        suggestion = {
-          enabled = true,
-          auto_trigger = false,
-          hide_during_completion = true,
-          debounce = 75,
-          keymap = {
-            accept = '<M-l>',
-            accept_word = false,
-            accept_line = false,
-            next = '<M-]>',
-            prev = '<M-[>',
-            dismiss = '<C-]>',
-          },
-        },
-        filetypes = {
-          yaml = false,
-          markdown = false,
-          help = false,
-          gitcommit = false,
-          gitrebase = false,
-          hgcommit = false,
-          svn = false,
-          cvs = false,
-          ['.'] = false,
-        },
-        copilot_node_command = 'node', -- Node.js version must be > 18.x
-        server_opts_overrides = {},
-      }
-    end,
-  },
-
-  {
-    'yetone/avante.nvim',
-    event = 'VeryLazy',
-    lazy = false,
-    opts = {
-      -- add any opts here
-    },
-    keys = {
-      {
-        '<leader>aa',
-        function()
-          require('avante.api').ask()
-        end,
-        desc = 'avante: ask',
-        mode = { 'n', 'v' },
-      },
-      {
-        '<leader>ar',
-        function()
-          require('avante.api').refresh()
-        end,
-        desc = 'avante: refresh',
-      },
-      {
-        '<leader>ae',
-        function()
-          require('avante.api').edit()
-        end,
-        desc = 'avante: edit',
-        mode = 'v',
-      },
-    },
-    dependencies = {
-      'stevearc/dressing.nvim',
-      'nvim-lua/plenary.nvim',
-      'MunifTanjim/nui.nvim',
-      --- The below dependencies are optional
-      'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
-      'zbirenbaum/copilot.lua', -- for providers='copilot'
-      {
-        -- support for image pasting
-        'HakonHarnes/img-clip.nvim',
-        event = 'VeryLazy',
-        opts = {
-          -- recommended settings
-          default = {
-            embed_image_as_base64 = false,
-            prompt_for_file_name = false,
-            drag_and_drop = {
-              insert_mode = true,
-            },
-            -- required for Windows users
-            use_absolute_path = true,
-          },
-        },
-      },
-      {
-        -- Make sure to setup it properly if you have lazy=true
-        'MeanderingProgrammer/render-markdown.nvim',
-        opts = {
-          file_types = { 'markdown', 'Avante' },
-        },
-        ft = { 'markdown', 'Avante' },
-      },
     },
   },
 
