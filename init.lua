@@ -180,9 +180,11 @@ vim.api.nvim_create_autocmd('FileType', {
 -- Set up a function to toggle between light and dark modes
 local function toggle_background()
   if vim.o.background == 'dark' then
-    vim.o.background = 'light'
+    -- vim.o.background = 'light'
+    vim.cmd.colorscheme 'catppuccin-latte'
   else
-    vim.o.background = 'dark'
+    -- vim.o.background = 'dark'
+    vim.cmd.colorscheme 'catppuccin-mocha'
   end
 end
 
@@ -242,7 +244,8 @@ vim.api.nvim_create_autocmd('FileType', {
       local filename = vim.fn.expand '%:p'
       local output = vim.fn.expand '%:p:r'
       vim.cmd 'write' -- Save the file before compiling
-      vim.cmd('vsplit | terminal clang -Wall -Wextra -g ' .. filename .. ' -o ' .. output)
+      -- vim.cmd('vsplit | terminal clang -Wall -Wextra -g ' .. filename .. ' -o ' .. output)
+      vim.cmd('vsplit | terminal clang -std=c2x -Wall -Wextra -lm ' .. filename .. ' -o ' .. output)
     end, { buffer = true, desc = 'Compile C file' })
 
     -- Compile and run the current file
@@ -250,7 +253,7 @@ vim.api.nvim_create_autocmd('FileType', {
       local filename = vim.fn.expand '%:p'
       local output = vim.fn.expand '%:p:r'
       vim.cmd 'write' -- Save the file before compiling
-      vim.cmd('vsplit | terminal clang -Wall -Wextra -g ' .. filename .. ' -o ' .. output .. ' && ' .. output)
+      vim.cmd('vsplit | terminal clang -std=c2x -Wall -Wextra -lm ' .. filename .. ' -o ' .. output .. ' && ' .. output)
     end, { buffer = true, desc = 'Compile and run C file' })
 
     -- Run the compiled file
@@ -312,9 +315,18 @@ require('lazy').setup({
       local lint = require 'lint'
 
       lint.linters_by_ft = {
-        c = { 'clangtidy' },
-        python = { 'pylint' },
+        -- c = { 'clangtidy' },
+        -- python = { 'pylint' },
       }
+
+      -- Configure clang-tidy for C23 support
+      -- lint.linters.clangtidy.args = {
+      --   '--extra-arg=-std=c2x',
+      --   '--extra-arg=-Wc2x-extensions', -- Explicitly enable C23 extension warnings
+      --   '--checks=-*,clang-diagnostic-*', -- Focus on compiler diagnostics
+      --   '-p',
+      --   '.',
+      -- }
 
       local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
 
@@ -792,7 +804,7 @@ require('lazy').setup({
         'stylua', -- Used to format Lua code
         'clang-format', -- Used to format C code
         'pylint', -- Used to lint Python code
-        'black', -- Used to format Python code
+        -- 'black', -- Used to format Python code
         'isort', -- Used to sort Python `import` statements
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -848,7 +860,7 @@ require('lazy').setup({
         lua = { 'stylua' },
         c = { 'clang_format' },
         -- Conform can also run multiple formatters sequentially
-        python = { 'isort', 'black' },
+        -- python = { 'isort', 'black' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
@@ -927,7 +939,7 @@ require('lazy').setup({
 
           -- If you prefer more traditional completion keymaps,
           -- you can uncomment the following lines
-          --['<CR>'] = cmp.mapping.confirm { select = true },
+          -- ['<CR>'] = cmp.mapping.confirm { select = true },
           --['<Tab>'] = cmp.mapping.select_next_item(),
           --['<S-Tab>'] = cmp.mapping.select_prev_item(),
 
@@ -977,13 +989,14 @@ require('lazy').setup({
     -- change the command in the config to whatever the name of that colorscheme is.
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'folke/tokyonight.nvim',
+    'catppuccin/nvim',
+    name = 'catppuccin',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      vim.cmd.colorscheme 'catppuccin'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
