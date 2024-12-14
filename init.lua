@@ -699,6 +699,16 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         clangd = {},
+        yamlls = {
+          -- settings = {
+          --   yaml = {
+          --     schemas = {
+          --       -- You can add schema configurations here if needed
+          --       -- ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+          --     },
+          --   },
+          -- },
+        },
         -- gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
@@ -743,6 +753,8 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'yamllint', -- Used to lint YAML code
+        'prettier', -- Used to format YAML code
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -796,6 +808,7 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         c = { 'clang-format' },
+        yaml = { 'prettier' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
