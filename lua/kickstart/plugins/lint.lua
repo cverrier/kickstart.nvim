@@ -9,6 +9,7 @@ return {
         markdown = { 'markdownlint' },
         bzl = { 'buildifier' },
         yaml = { 'yamllint' },
+        c = { 'clangtidy' },
       }
 
       -- To allow other plugins to add linters to require('lint').linters_by_ft,
