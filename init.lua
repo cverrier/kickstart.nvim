@@ -697,6 +697,7 @@ require('lazy').setup({
         'stylua', -- Used to format Lua code
         'yamllint', -- Used to lint YAML code
         'prettier', -- Used to format YAML code
+        'buildifier', -- Used to lint and format Bazel (Starlark) code
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -751,6 +752,7 @@ require('lazy').setup({
         lua = { 'stylua' },
         c = { 'clang-format' },
         yaml = { 'prettier' },
+        bzl = { 'buildifier' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
