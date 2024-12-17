@@ -722,6 +722,7 @@ require('lazy').setup({
           --   },
           -- },
         },
+        jsonls = {},
         -- gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
@@ -769,6 +770,7 @@ require('lazy').setup({
         'yamllint', -- Used to lint YAML code
         'prettier', -- Used to format YAML code
         'buildifier', -- Used to lint and format Bazel (Starlark) code
+        'jsonlint', -- Used to lint JSON code
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -824,6 +826,7 @@ require('lazy').setup({
         c = { 'clang-format' },
         yaml = { 'prettier' },
         bzl = { 'buildifier' },
+        json = { 'prettier' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
