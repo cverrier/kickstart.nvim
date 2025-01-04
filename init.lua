@@ -751,7 +751,7 @@ require('lazy').setup({
         },
         jsonls = {},
         -- gopls = {},
-        -- pyright = {},
+        pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -798,6 +798,9 @@ require('lazy').setup({
         'prettier', -- Used to format YAML code
         'buildifier', -- Used to lint and format Bazel (Starlark) code
         'jsonlint', -- Used to lint JSON code
+        'pylint', -- Used to lint Python code
+        'black', -- Used to format Python code
+        'isort', -- Used to format Python imports
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -855,7 +858,7 @@ require('lazy').setup({
         bzl = { 'buildifier' },
         json = { 'prettier' },
         -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
+        python = { 'isort', 'black' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
