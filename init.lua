@@ -261,6 +261,8 @@ require('lazy').setup({
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
+  'tpope/vim-surround',
+  'tpope/vim-repeat',
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
