@@ -909,6 +909,23 @@ require('lazy').setup({
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
+
+        -- Get the full path of the current file
+        local file_path = vim.api.nvim_buf_get_name(bufnr)
+        -- Define paths where format-on-save should be disabled
+        local disabled_paths = {
+          vim.env.HOME .. '/repos/tinygrad',
+          -- Add more paths if needed
+          -- "/path/to/another/project",
+        }
+
+        -- Check if the current file is in any of the disabled paths
+        for _, path in ipairs(disabled_paths) do
+          if vim.startswith(file_path, path) then
+            return false
+          end
+        end
+
         local disable_filetypes = { c = true, cpp = true }
         if disable_filetypes[vim.bo[bufnr].filetype] then
           return nil
