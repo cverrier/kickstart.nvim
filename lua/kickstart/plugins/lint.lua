@@ -11,7 +11,7 @@ return {
         yaml = { 'yamllint' },
         c = { 'clangtidy' },
         json = { 'jsonlint' },
-        python = { 'ruff', 'mypy', 'pylint' },
+        python = { 'ruff', 'mypy' },
       }
 
       -- To allow other plugins to add linters to require('lint').linters_by_ft,

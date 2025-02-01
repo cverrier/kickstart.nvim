@@ -860,7 +860,6 @@ require('lazy').setup({
         'jsonlint', -- Used to lint JSON code
         'ruff', -- Used to lint and format Python code
         'mypy', -- Used for Python type checks
-        'pylint', -- Used to lint Python code
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
