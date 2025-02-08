@@ -855,11 +855,12 @@ require('lazy').setup({
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
         'yamllint', -- Used to lint YAML code
-        'prettier', -- Used to format YAML code
+        'prettier', -- Used to format YAML and Markdown code
         'buildifier', -- Used to lint and format Bazel (Starlark) code
         'jsonlint', -- Used to lint JSON code
         'ruff', -- Used to lint and format Python code
         'mypy', -- Used for Python type checks
+        'markdownlint', -- Used to lint Markdown files
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -939,6 +940,7 @@ require('lazy').setup({
         lua = { 'stylua' },
         c = { 'clang-format' },
         yaml = { 'prettier' },
+        markdown = { 'prettier' },
         bzl = { 'buildifier' },
         json = { 'prettier' },
         -- Conform can also run multiple formatters sequentially
