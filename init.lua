@@ -266,6 +266,16 @@ require('lazy').setup({
   'github/copilot.vim',
 
   {
+    'iamcco/markdown-preview.nvim',
+    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+    build = 'cd app && yarn install',
+    init = function()
+      vim.g.mkdp_filetypes = { 'markdown' }
+    end,
+    ft = { 'markdown' },
+  },
+
+  {
     'kkoomen/vim-doge',
     config = function()
       vim.g.doge_doc_standard_python = 'google'
@@ -278,7 +288,6 @@ require('lazy').setup({
   --
   -- Use `opts = {}` to automatically pass options to a plugin's `setup()` function, forcing the plugin to be loaded.
   --
-  --
   {
     'yetone/avante.nvim',
     event = 'VeryLazy',
@@ -286,11 +295,21 @@ require('lazy').setup({
     version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
     opts = {
       -- add any opts here
+      -- for example
+      provider = 'claude',
+      claude = {
+        temperature = 1,
+        max_tokens = 20000,
+        thinking = {
+          type = 'enabled',
+          budget_tokens = 16000,
+        },
+      },
     },
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     build = 'make',
-    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
     dependencies = {
+      'nvim-treesitter/nvim-treesitter',
       'stevearc/dressing.nvim',
       'nvim-lua/plenary.nvim',
       'MunifTanjim/nui.nvim',
@@ -299,7 +318,8 @@ require('lazy').setup({
       'nvim-telescope/telescope.nvim', -- for file_selector provider telescope
       'hrsh7th/nvim-cmp', -- autocompletion for avante commands and mentions
       'ibhagwan/fzf-lua', -- for file_selector provider fzf
-      -- 'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
+      'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
+      -- 'zbirenbaum/copilot.lua', -- for providers='copilot'
       {
         -- support for image pasting
         'HakonHarnes/img-clip.nvim',
