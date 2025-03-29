@@ -832,6 +832,7 @@ require('lazy').setup({
         -- pyright = {},
         ruff = {},
         -- rust_analyzer = {},
+
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -1095,16 +1096,15 @@ require('lazy').setup({
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     'catppuccin/nvim',
-    'folke/tokyonight.nvim',
     name = 'catppuccin',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     config = function()
       ---@diagnostic disable-next-line: missing-fields
-      require('tokyonight').setup {
-        styles = {
-          comments = { italic = false }, -- Disable italics in comments
-        },
-      }
+      -- require('tokyonight').setup {
+      --   styles = {
+      --     comments = { italic = false }, -- Disable italics in comments
+      --   },
+      -- }
 
       -- Load the colorscheme here.
       vim.cmd.colorscheme 'catppuccin-mocha'
@@ -1193,6 +1193,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.indent_line',
   require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
+  -- require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
