@@ -745,7 +745,12 @@ require('lazy').setup({
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
         local disable_filetypes = {}
-        if disable_filetypes[vim.bo[bufnr].filetype] then
+        local filetype = vim.bo[bufnr].filetype
+        local bufname = vim.api.nvim_buf_get_name(bufnr)
+        if filetype == 'python' and vim.startswith(bufname, '/Users/clementverrier/repos/tinygrad') then
+          return nil
+        end
+        if disable_filetypes[filetype] then
           return nil
         else
           return {
