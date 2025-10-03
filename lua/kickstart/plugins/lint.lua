@@ -9,8 +9,19 @@ return {
         markdown = { 'markdownlint' },
         c = { 'clangtidy' },
         cpp = { 'clangtidy' },
-        python = { 'ruff' },
+        python = { 'ruff', 'mypy' },
       }
+
+      -- Override the mypy linter to use the version from the active virtual environment (if available)
+      lint.linters.mypy.cmd = function()
+        local venv_selector = require 'venv-selector'
+        local venv = venv_selector.venv()
+        if venv then
+          return venv .. '/bin/mypy'
+        else
+          return 'mypy' -- Fallback to system-wide mypy if no venv is active
+        end
+      end
 
       -- To allow other plugins to add linters to require('lint').linters_by_ft,
       -- instead set linters_by_ft like this:
