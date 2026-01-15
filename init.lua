@@ -803,10 +803,10 @@ require('lazy').setup({
         -- languages here or re-enable it for the disabled ones.
         local disable_filetypes = {}
         local filetype = vim.bo[bufnr].filetype
-        local bufname = vim.api.nvim_buf_get_name(bufnr)
-        if filetype == 'python' and vim.startswith(bufname, '/Users/clementverrier/repos/tinygrad') then
-          return nil
-        end
+        -- local bufname = vim.api.nvim_buf_get_name(bufnr)
+        -- if filetype == 'python' and vim.startswith(bufname, '/Users/clementverrier/repos/tinygrad') then
+        --   return nil
+        -- end
         if disable_filetypes[filetype] then
           return nil
         else
@@ -949,40 +949,40 @@ require('lazy').setup({
     end,
   },
 
-  -- { -- You can easily change to a different colorscheme.
-  --   -- Change the name of the colorscheme plugin below, and then
-  --   -- change the command in the config to whatever the name of that colorscheme is.
-  --   --
-  --   -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-  --   'projekt0n/github-nvim-theme',
-  --   name = 'github-theme',
-  --   lazy = false,
-  --   priority = 1000, -- Make sure to load this before all the other start plugins.
-  --   config = function()
-  --     ---@diagnostic disable-next-line: missing-fields
-  --     require('github-theme').setup {
-  --       styles = {
-  --         comments = { italic = false }, -- Disable italics in comments
-  --       },
-  --     }
-  --
-  --     -- Load the colorscheme here.
-  --     -- Like many other themes, this one has different styles, and you could load
-  --     -- any other.
-  --     vim.cmd.colorscheme 'github_dark_default'
-  --   end,
-  -- },
+  { -- You can easily change to a different colorscheme.
+    -- Change the name of the colorscheme plugin below, and then
+    -- change the command in the config to whatever the name of that colorscheme is.
+    --
+    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+    'projekt0n/github-nvim-theme',
+    name = 'github-theme',
+    lazy = false,
+    priority = 1000, -- Make sure to load this before all the other start plugins.
+    config = function()
+      ---@diagnostic disable-next-line: missing-fields
+      require('github-theme').setup {
+        styles = {
+          comments = { italic = false }, -- Disable italics in comments
+        },
+      }
 
-  { 'EdenEast/nightfox.nvim' },
+      -- Load the colorscheme here.
+      -- Like many other themes, this one has different styles, and you could load
+      -- any other.
+      vim.cmd.colorscheme 'github_light_default'
+    end,
+  },
+
+  -- { 'EdenEast/nightfox.nvim' },
 
   {
     'f-person/auto-dark-mode.nvim',
     opts = {
       set_dark_mode = function()
-        vim.cmd.colorscheme 'carbonfox'
+        vim.cmd.colorscheme 'github_dark_default'
       end,
       set_light_mode = function()
-        vim.cmd.colorscheme 'dayfox'
+        vim.cmd.colorscheme 'github_light_default'
       end,
       update_interval = 3000,
       fallback = 'dark',
@@ -1089,6 +1089,8 @@ require('lazy').setup({
     'kkoomen/vim-doge',
     config = function()
       vim.g.doge_doc_standard_python = 'google'
+      vim.g.doge_doc_standard_c = 'doxygen_javadoc'
+      vim.g.doge_doc_standard_cpp = 'doxygen_javadoc'
     end,
   },
 
@@ -1120,7 +1122,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
   require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
