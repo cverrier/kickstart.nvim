@@ -681,7 +681,6 @@ require('lazy').setup({
           cmd = {
             'clangd',
             '--background-index',
-            '--clang-tidy',
             '--header-insertion=iwyu',
             '--completion-style=detailed',
             '--function-arg-placeholders',
@@ -803,10 +802,13 @@ require('lazy').setup({
         -- languages here or re-enable it for the disabled ones.
         local disable_filetypes = {}
         local filetype = vim.bo[bufnr].filetype
-        -- local bufname = vim.api.nvim_buf_get_name(bufnr)
-        -- if filetype == 'python' and vim.startswith(bufname, '/Users/clementverrier/repos/tinygrad') then
-        --   return nil
-        -- end
+        local bufname = vim.api.nvim_buf_get_name(bufnr)
+        if filetype == 'python' and vim.startswith(bufname, '/Users/clementverrier/repos/tinygrad') then
+          return nil
+        end
+        if filetype == 'python' and vim.startswith(bufname, '/Users/clementverrier/repos/original_performance_takehome') then
+          return nil
+        end
         if disable_filetypes[filetype] then
           return nil
         else
@@ -822,6 +824,7 @@ require('lazy').setup({
         rust = { 'rustfmt' },
         c = { 'clang_format' },
         cpp = { 'clang_format' },
+        html = { 'prettier' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
