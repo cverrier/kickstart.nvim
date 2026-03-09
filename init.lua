@@ -638,9 +638,7 @@ require('lazy').setup({
         -- pyright = {},
         ruff = {},
         rust_analyzer = {
-          on_attach = function(client, bufnr)
-            vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-          end,
+          on_attach = function(client, bufnr) vim.lsp.inlay_hint.enable(true, { bufnr = bufnr }) end,
           settings = {
             ['rust-analyzer'] = {
               imports = {
@@ -746,12 +744,8 @@ require('lazy').setup({
         local disable_filetypes = {}
         local filetype = vim.bo[bufnr].filetype
         local bufname = vim.api.nvim_buf_get_name(bufnr)
-        if filetype == 'python' and vim.startswith(bufname, '/Users/clementverrier/repos/tinygrad') then
-          return nil
-        end
-        if filetype == 'python' and vim.startswith(bufname, '/Users/clementverrier/repos/original_performance_takehome') then
-          return nil
-        end
+        if filetype == 'python' and vim.startswith(bufname, '/Users/clementverrier/repos/tinygrad') then return nil end
+        if filetype == 'python' and vim.startswith(bufname, '/Users/clementverrier/repos/original_performance_takehome') then return nil end
         if disable_filetypes[filetype] then
           return nil
         else
@@ -899,12 +893,8 @@ require('lazy').setup({
   {
     'f-person/auto-dark-mode.nvim',
     opts = {
-      set_dark_mode = function()
-        vim.cmd.colorscheme 'github_dark_default'
-      end,
-      set_light_mode = function()
-        vim.cmd.colorscheme 'github_light_default'
-      end,
+      set_dark_mode = function() vim.cmd.colorscheme 'github_dark_default' end,
+      set_light_mode = function() vim.cmd.colorscheme 'github_light_default' end,
       update_interval = 3000,
       fallback = 'dark',
     },
@@ -1014,9 +1004,7 @@ require('lazy').setup({
     'iamcco/markdown-preview.nvim',
     cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
     build = 'cd app && yarn install',
-    init = function()
-      vim.g.mkdp_filetypes = { 'markdown' }
-    end,
+    init = function() vim.g.mkdp_filetypes = { 'markdown' } end,
     ft = { 'markdown' },
   },
 
