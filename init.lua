@@ -757,7 +757,12 @@ do
   local servers = {
     clangd = {},
     -- gopls = {},
-    -- pyright = {},
+    ty = {},
+    ruff = {
+      on_init = function(client)
+        client.server_capabilities.hoverProvider = false -- ty's hover is the useful one
+      end,
+    },
     -- tsc = {},
     --
     -- Some languages (like rust) have entire language plugins that can be useful:
@@ -864,6 +869,7 @@ do
     },
     -- You can also specify external formatters in here.
     formatters_by_ft = {
+      python = { 'ruff_organize_imports', 'ruff_format' },
       -- rust = { 'rustfmt' },
       -- Conform can also run multiple formatters sequentially
       -- python = { "isort", "black" },
